@@ -1,1 +1,17 @@
-<p>footer works!</p>
+<footer class="w-full bg-gray-800 text-white py-4">
+  <div class="container mx-auto flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0 px-4">
+    <div class="text-xl font-bold">
+      {{ 'FOOTER_BRAND' | translate }}
+    </div>
+
+    <ul class="flex flex-col md:flex-row md:space-x-6 text-center">
+      <li><a class="hover:text-red-300" routerLink="/about">{{ 'ABOUT_US' | translate }}</a></li>
+      <li><a class="hover:text-red-300" routerLink="/contact">{{ 'CONTACT_US' | translate }}</a></li>
+      <li><a class="hover:text-red-300" routerLink="/faq">{{ 'FAQ' | translate }}</a></li>
+    </ul>
+
+    <div class="text-sm text-center md:text-right">
+      &copy; {{ currentYear }} {{ 'FOOTER_COPYRIGHT' | translate }}
+    </div>
+  </div>
+</footer>
