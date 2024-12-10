@@ -1,0 +1,21 @@
+.form-input {
+  transition: border-color 0.2s ease-in-out;
+}
+
+.form-input:focus {
+  border-color: #4a90e2;
+  outline: none;
+}
+
+.form-input.error {
+  border-color: #ff5a5a;
+}
+
+.form-select {
+  transition: border-color 0.2s ease-in-out;
+}
+
+.form-select:focus {
+  border-color: #4a90e2;
+  outline: none;
+}

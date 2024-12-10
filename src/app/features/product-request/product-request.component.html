@@ -1,0 +1,67 @@
+<div class="flex flex-col items-center justify-center bg-custom-gradient py-6">
+  <div class="bg-gray-100 p-8 rounded-lg shadow-lg max-w-xl w-full">
+    <h3 class="text-center text-2xl font-bold text-gray-800 mb-4">
+      {{ 'PRODUCT_REQUEST_TITLE' | translate }}
+    </h3>
+    <p class="text-center mb-6">
+      {{ 'PRODUCT_REQUEST_MESSAGE' | translate }}
+    </p>
+    <form [formGroup]="productRequestForm" (ngSubmit)="onSubmit()">
+      <div class="mb-4">
+        <label for="productName" class="block text-gray-700 font-medium mb-1">
+          {{ 'PRODUCT_NAME' | translate }}
+        </label>
+        <input
+          type="text"
+          formControlName="productName"
+          id="productName"
+          class="form-input w-full border-2 border-gray-700 rounded-md px-4 py-2"
+          placeholder="{{ 'PRODUCT_NAME_PLACEHOLDER' | translate }}"
+        />
+        <div *ngIf="productRequestForm.get('productName')?.invalid && productRequestForm.get('productName')?.touched" class="text-red-500 text-sm">
+          {{ 'INVALID_PRODUCT_NAME' | translate }}
+        </div>
+      </div>
+      <div class="mb-4">
+        <label for="productCategory" class="block text-gray-700 font-medium mb-1">
+          {{ 'PRODUCT_CATEGORY' | translate }}
+        </label>
+        <select
+          formControlName="productCategory"
+          id="productCategory"
+          class="form-select w-full border-2 border-gray-700 rounded-md px-4 py-2"
+        >
+          <option value="">{{ 'PRODUCT_CATEGORY_PLACEHOLDER' | translate }}</option>
+          <option value="category1">{{ 'CATEGORY_1' | translate }}</option>
+          <option value="category2">{{ 'CATEGORY_2' | translate }}</option>
+          <option value="category3">{{ 'CATEGORY_3' | translate }}</option>
+        </select>
+        <div *ngIf="productRequestForm.get('productCategory')?.invalid && productRequestForm.get('productCategory')?.touched" class="text-red-500 text-sm">
+          {{ 'INVALID_PRODUCT_CATEGORY' | translate }}
+        </div>
+      </div>
+      <div class="mb-4">
+        <label for="productDescription" class="block text-gray-700 font-medium mb-1">
+          {{ 'PRODUCT_DESCRIPTION' | translate }}
+        </label>
+        <textarea
+          formControlName="productDescription"
+          id="productDescription"
+          class="form-textarea w-full border-2 border-gray-700 rounded-md px-4 py-2"
+          rows="3"
+          placeholder="{{ 'PRODUCT_DESCRIPTION_PLACEHOLDER' | translate }}"
+        ></textarea>
+        <div *ngIf="productRequestForm.get('productDescription')?.invalid && productRequestForm.get('productDescription')?.touched" class="text-red-500 text-sm">
+          {{ 'INVALID_PRODUCT_DESCRIPTION' | translate }}
+        </div>
+      </div>
+      <button
+        type="submit"
+        class="w-full bg-gray-800 text-white hover:bg-gray-700 px-6 py-3 rounded-md"
+        [disabled]="productRequestForm.invalid"
+      >
+        {{ 'SUBMIT_REQUEST' | translate }}
+      </button>
+    </form>
+  </div>
+</div>

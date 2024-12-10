@@ -1,0 +1,60 @@
+<div class="bg-custom-gradient py-6">
+  <div class="max-w-7xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+    <h2 class="text-2xl font-bold text-gray-800 mb-4">
+      {{ 'REQUEST_LIST_TITLE' | translate }}
+    </h2>
+
+    <div class="mb-4 flex justify-between items-center">
+      <div>
+        <label for="statusFilter" class="block text-gray-700 font-medium mb-1">
+          {{ 'FILTER_BY_STATUS' | translate }}
+        </label>
+        <select
+          name="statusFilter"
+          [(ngModel)]="filterStatus"
+          (change)="applyFilter()"
+          class="form-select w-full border-2 border-gray-700 rounded-md px-4 py-2">
+          <option value="all">{{ 'ALL' | translate }}</option>
+          <option value="pending">{{ 'PENDING' | translate }}</option>
+          <option value="approved">{{ 'APPROVED' | translate }}</option>
+          <option value="rejected">{{ 'REJECTED' | translate }}</option>
+        </select>
+      </div>
+    </div>
+
+    <table class="w-full table-auto border-collapse border border-gray-300">
+      <thead class="bg-gray-800 text-white">
+      <tr>
+        <th class="px-4 py-2">{{ 'PRODUCT_NAME' | translate }}</th>
+        <th class="px-4 py-2">{{ 'CLIENT_NAME' | translate }}</th>
+        <th class="px-4 py-2">{{ 'REQUEST_DATE' | translate }}</th>
+        <th class="px-4 py-2">{{ 'STATUS' | translate }}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let request of filteredRequests" class="text-center">
+        <td class="border px-4 py-2">{{ request.productName }}</td>
+        <td class="border px-4 py-2">{{ request.clientName }}</td>
+        <td class="border px-4 py-2">{{ request.date | date }}</td>
+        <td class="border px-4 py-2">
+            <span
+              class="px-3 py-1 rounded-md"
+              [ngClass]="{
+                'bg-yellow-200 text-yellow-800': request.status === 'pending',
+                'bg-green-200 text-green-800': request.status === 'approved',
+                'bg-red-200 text-red-800': request.status === 'rejected'
+              }"
+            >
+              {{ request.status | translate }}
+            </span>
+        </td>
+      </tr>
+      <tr *ngIf="filteredRequests.length === 0" class="text-center">
+        <td colspan="4" class="border px-4 py-2 text-gray-600">
+          {{ 'NO_REQUESTS' | translate }}
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

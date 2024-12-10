@@ -1,0 +1,7 @@
+.table-auto th, .table-auto td {
+  text-align: left;
+  padding: 0.5rem;
+}
+.table-auto th {
+  font-weight: bold;
+}

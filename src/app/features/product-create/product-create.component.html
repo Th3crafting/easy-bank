@@ -1,0 +1,86 @@
+<div class="flex flex-col items-center justify-center bg-custom-gradient py-6">
+  <div class="bg-white p-8 rounded-lg shadow-lg max-w-xl w-full">
+    <h3 class="text-center text-2xl font-bold text-gray-800 mb-4">
+      {{ 'CREATE_PRODUCT_TITLE' | translate }}
+    </h3>
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+      <div class="mb-4">
+        <label for="productName" class="block text-gray-700 font-medium mb-1">
+          {{ 'PRODUCT_NAME' | translate }}
+        </label>
+        <input
+          type="text"
+          id="productName"
+          formControlName="name"
+          class="form-input w-full border-2 border-gray-700 rounded-md px-4 py-2"
+          required
+        />
+        <div *ngIf="productForm.get('name')?.invalid && productForm.get('name')?.touched" class="text-red-500 text-sm">
+          {{ 'INVALID_PRODUCT_NAME' | translate }}
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label for="productDescription" class="block text-gray-700 font-medium mb-1">
+          {{ 'PRODUCT_DESCRIPTION' | translate }}
+        </label>
+        <textarea
+          id="productDescription"
+          formControlName="description"
+          class="form-textarea w-full border-2 border-gray-700 rounded-md px-4 py-2"
+          rows="3"
+          required
+        ></textarea>
+        <div *ngIf="productForm.get('description')?.invalid && productForm.get('description')?.touched" class="text-red-500 text-sm">
+          {{ 'INVALID_PRODUCT_DESCRIPTION' | translate }}
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label for="productType" class="block text-gray-700 font-medium mb-1">
+          {{ 'PRODUCT_TYPE' | translate }}
+        </label>
+        <select
+          id="productType"
+          formControlName="type"
+          class="form-select w-full border-2 border-gray-700 rounded-md px-4 py-2"
+          required
+        >
+          <option [value]="null">{{ 'SELECT_OPTION' | translate }}</option>
+          <option value="savings">{{ 'SAVINGS_ACCOUNT' | translate }}</option>
+          <option value="credit-card">{{ 'CREDIT_CARD' | translate }}</option>
+          <option value="mortgage">{{ 'MORTGAGE' | translate }}</option>
+          <option value="car-loan">{{ 'CAR_LOAN' | translate }}</option>
+          <option value="personal-loan">{{ 'PERSONAL_LOAN' | translate }}</option>
+        </select>
+        <div *ngIf="productForm.get('type')?.invalid && productForm.get('type')?.touched" class="text-red-500 text-sm">
+          {{ 'INVALID_PRODUCT_TYPE' | translate }}
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label for="productRate" class="block text-gray-700 font-medium mb-1">
+          {{ 'PRODUCT_RATE' | translate }}
+        </label>
+        <input
+          type="number"
+          id="productRate"
+          formControlName="rate"
+          class="form-input w-full border-2 border-gray-700 rounded-md px-4 py-2"
+          required
+        />
+        <div *ngIf="productForm.get('rate')?.invalid && productForm.get('rate')?.touched" class="text-red-500 text-sm">
+          {{ 'INVALID_PRODUCT_RATE' | translate }}
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        class="w-full bg-gray-800 text-white hover:bg-gray-700 px-6 py-3 rounded-md"
+        [disabled]="productForm.invalid"
+      >
+        {{ 'CREATE_PRODUCT_BUTTON' | translate }}
+      </button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,186 @@
+<div class="flex flex-col items-center justify-center bg-custom-gradient py-6">
+  <div class="bg-white p-8 rounded-lg shadow-lg max-w-4xl w-full">
+    <h2 class="text-center text-2xl font-bold text-gray-800 mb-6">
+      {{ 'MANAGE_DELIVERY_REQUEST' | translate }}
+    </h2>
+    <form [formGroup]="deliveryRequestForm" (ngSubmit)="onSubmit()">
+      <!-- Datos del Cliente -->
+      <div class="mb-6 p-4 bg-gray-100 rounded-md" *ngIf="deliveryData">
+        <h5 class="text-lg font-bold text-gray-700">{{ 'CLIENT_INFO' | translate }}</h5>
+        <p><strong>{{ 'CLIENT_NAME' | translate }}:</strong> {{ deliveryData.clientName }}</p>
+        <p><strong>{{ 'DELIVERY_ADDRESS' | translate }}:</strong> {{ deliveryData.address }}</p>
+      </div>
+
+      <!-- Ubicación y Fecha de Entrega -->
+      <div class="mb-6">
+        <label for="deliveryLocation" class="block text-gray-700 font-medium mb-2">
+          {{ 'DELIVERY_LOCATION' | translate }}
+        </label>
+        <input
+          id="deliveryLocation"
+          type="text"
+          formControlName="location"
+          class="form-input w-full border-2 border-gray-700 rounded-md px-4 py-2"
+          placeholder="{{ 'DELIVERY_LOCATION_PLACEHOLDER' | translate }}"
+        />
+        <div *ngIf="deliveryRequestForm.get('location')?.invalid && deliveryRequestForm.get('location')?.touched" class="text-red-500 text-sm">
+          {{ 'INVALID_LOCATION' | translate }}
+        </div>
+      </div>
+      <div class="mb-6">
+        <label for="deliveryDate" class="block text-gray-700 font-medium mb-2">
+          {{ 'DELIVERY_DATE' | translate }}
+        </label>
+        <input
+          id="deliveryDate"
+          type="date"
+          formControlName="date"
+          class="form-input w-full border-2 border-gray-700 rounded-md px-4 py-2"
+        />
+        <div *ngIf="deliveryRequestForm.get('date')?.invalid && deliveryRequestForm.get('date')?.touched" class="text-red-500 text-sm">
+          {{ 'INVALID_DATE' | translate }}
+        </div>
+      </div>
+
+      <!-- Mapa -->
+      <div class="mb-6">
+        <label for="map" class="block text-gray-700 font-medium mb-2">
+          {{ 'DELIVERY_MAP' | translate }}
+        </label>
+        <iframe
+          id="map"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.835434507082!2d-122.41941518468102!3d37.774929279758825!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80858064d10a8a57%3A0x6e8f441cb00ab1d7!2sSucursal%20Centro!5e0!3m2!1ses-419!2sco!4v1693313459344"
+          width="100%"
+          height="300"
+          style="border: 0;"
+          allowfullscreen=""
+          loading="lazy"
+        ></iframe>
+      </div>
+
+      <!-- Confirmación -->
+      <div class="mb-6">
+        <label for="confirmationStatus" class="block text-gray-700 font-medium mb-2">
+          {{ 'CONFIRMATION_STATUS' | translate }}
+        </label>
+        <select
+          id="confirmationStatus"
+          formControlName="confirmationStatus"
+          class="form-select w-full border-2 border-gray-700 rounded-md px-4 py-2"
+        >
+          <option value="pending">{{ 'PENDING' | translate }}</option>
+          <option value="delivered">{{ 'DELIVERED' | translate }}</option>
+          <option value="rescheduled">{{ 'RESCHEDULED' | translate }}</option>
+        </select>
+        <div *ngIf="deliveryRequestForm.get('confirmationStatus')?.invalid && deliveryRequestForm.get('confirmationStatus')?.touched" class="text-red-500 text-sm">
+          {{ 'INVALID_CONFIRMATION' | translate }}
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        class="w-full bg-gray-800 text-white hover:bg-gray-700 px-6 py-3 rounded-md"
+        [disabled]="deliveryRequestForm.invalid"
+      >
+        {{ 'SAVE_REQUEST' | translate }}
+      </button>
+    </form>
+  </div>
+</div>
+
+
+<!--
+<div class="flex flex-col items-center justify-center bg-custom-gradient py-6">
+  <div class="bg-white p-8 rounded-lg shadow-lg max-w-4xl w-full">
+    <h2 class="text-center text-2xl font-bold text-gray-800 mb-6">
+      {{ 'MANAGE_DELIVERY_REQUEST' | translate }}
+    </h2>
+    <form [formGroup]="deliveryRequestForm" (ngSubmit)="onSubmit()">
+      <div class="mb-6 p-4 bg-gray-100 rounded-md">
+        <h5 class="text-lg font-bold text-gray-700">{{ 'CLIENT_INFO' | translate }}</h5>
+        <p><strong>{{ 'CLIENT_NAME' | translate }}:</strong> {{ clientData.name }}</p>
+        <p><strong>{{ 'CLIENT_EMAIL' | translate }}:</strong> {{ clientData.email }}</p>
+        <p><strong>{{ 'CLIENT_PHONE' | translate }}:</strong> {{ clientData.phone }}</p>
+      </div>
+
+      <div class="mb-6 p-4 bg-gray-100 rounded-md">
+        <h5 class="text-lg font-bold text-gray-700">{{ 'PRODUCT_INFO' | translate }}</h5>
+        <p><strong>{{ 'PRODUCT_NAME' | translate }}:</strong> {{ productData.name }}</p>
+        <p><strong>{{ 'REQUEST_DATE' | translate }}:</strong> {{ productData.date }}</p>
+        <p><strong>{{ 'STATUS' | translate }}:</strong> {{ productData.status }}</p>
+      </div>
+
+      <div class="mb-6">
+        <label for="deliveryLocation" class="block text-gray-700 font-medium mb-2">
+          {{ 'DELIVERY_LOCATION' | translate }}
+        </label>
+        <input
+          id="deliveryLocation"
+          type="text"
+          formControlName="location"
+          class="form-input w-full border-2 border-gray-700 rounded-md px-4 py-2"
+          placeholder="{{ 'DELIVERY_LOCATION_PLACEHOLDER' | translate }}"
+        />
+        <div *ngIf="deliveryRequestForm.get('location')?.invalid && deliveryRequestForm.get('location')?.touched" class="text-red-500 text-sm">
+          {{ 'INVALID_LOCATION' | translate }}
+        </div>
+      </div>
+      <div class="mb-6">
+        <label for="deliveryDate" class="block text-gray-700 font-medium mb-2">
+          {{ 'DELIVERY_DATE' | translate }}
+        </label>
+        <input
+          id="deliveryDate"
+          type="date"
+          formControlName="date"
+          class="form-input w-full border-2 border-gray-700 rounded-md px-4 py-2"
+        />
+        <div *ngIf="deliveryRequestForm.get('date')?.invalid && deliveryRequestForm.get('date')?.touched" class="text-red-500 text-sm">
+          {{ 'INVALID_DATE' | translate }}
+        </div>
+      </div>
+
+      <div class="mb-6">
+        <label for="map" class="block text-gray-700 font-medium mb-2">
+          {{ 'DELIVERY_MAP' | translate }}
+        </label>
+        <iframe
+          id="map"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.835434507082!2d-122.41941518468102!3d37.774929279758825!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80858064d10a8a57%3A0x6e8f441cb00ab1d7!2sSucursal%20Centro!5e0!3m2!1ses-419!2sco!4v1693313459344"
+          width="100%"
+          height="300"
+          style="border: 0;"
+          allowfullscreen=""
+          loading="lazy"
+        ></iframe>
+      </div>
+
+      <div class="mb-6">
+        <label for="confirmationStatus" class="block text-gray-700 font-medium mb-2">
+          {{ 'CONFIRMATION_STATUS' | translate }}
+        </label>
+        <select
+          id="confirmationStatus"
+          formControlName="confirmationStatus"
+          class="form-select w-full border-2 border-gray-700 rounded-md px-4 py-2"
+        >
+          <option value="pending">{{ 'PENDING' | translate }}</option>
+          <option value="delivered">{{ 'DELIVERED' | translate }}</option>
+          <option value="rescheduled">{{ 'RESCHEDULED' | translate }}</option>
+        </select>
+        <div *ngIf="deliveryRequestForm.get('confirmationStatus')?.invalid && deliveryRequestForm.get('confirmationStatus')?.touched" class="text-red-500 text-sm">
+          {{ 'INVALID_CONFIRMATION' | translate }}
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        class="w-full bg-gray-800 text-white hover:bg-gray-700 px-6 py-3 rounded-md"
+        [disabled]="deliveryRequestForm.invalid"
+      >
+        {{ 'SAVE_REQUEST' | translate }}
+      </button>
+    </form>
+  </div>
+</div>
+-->

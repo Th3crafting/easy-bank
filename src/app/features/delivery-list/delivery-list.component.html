@@ -1,0 +1,68 @@
+<div class="flex flex-col bg-custom-gradient py-6">
+  <div class="max-w-6xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+    <h2 class="text-center text-2xl font-bold text-gray-800 mb-6">
+      {{ 'DELIVERY_LIST_TITLE' | translate }}
+    </h2>
+
+    <div class="mb-4 flex justify-between items-center">
+      <label for="filterStatus" class="text-gray-700 font-medium">
+        {{ 'FILTER_BY_STATUS' | translate }}
+      </label>
+      <select
+        id="filterStatus"
+        [(ngModel)]="filterStatus"
+        (change)="applyFilter()"
+        class="form-select border-2 border-gray-700 rounded-md px-4 py-2"
+      >
+        <option value="all">{{ 'ALL' | translate }}</option>
+        <option value="pending">{{ 'PENDING' | translate }}</option>
+        <option value="delivered">{{ 'DELIVERED' | translate }}</option>
+        <option value="rescheduled">{{ 'RESCHEDULED' | translate }}</option>
+      </select>
+    </div>
+
+    <table class="w-full table-auto border-collapse border border-gray-300">
+      <thead class="bg-gray-800 text-white">
+      <tr>
+        <th class="px-4 py-2">{{ 'CLIENT_NAME' | translate }}</th>
+        <th class="px-4 py-2">{{ 'DELIVERY_ADDRESS' | translate }}</th>
+        <th class="px-4 py-2">{{ 'DELIVERY_DATE' | translate }}</th>
+        <th class="px-4 py-2">{{ 'STATUS' | translate }}</th>
+        <th class="px-4 py-2">{{ 'ACTIONS' | translate }}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let delivery of filteredDeliveries" class="text-center">
+        <td class="border px-4 py-2">{{ delivery.clientName }}</td>
+        <td class="border px-4 py-2">{{ delivery.address }}</td>
+        <td class="border px-4 py-2">{{ delivery.date | date }}</td>
+        <td class="border px-4 py-2">
+            <span
+              class="px-3 py-1 rounded-md"
+              [ngClass]="{
+                'bg-yellow-200 text-yellow-800': delivery.status === 'pending',
+                'bg-green-200 text-green-800': delivery.status === 'delivered',
+                'bg-red-200 text-red-800': delivery.status === 'rescheduled'
+              }"
+            >
+              {{ delivery.status | translate }}
+            </span>
+        </td>
+        <td class="border px-4 py-2">
+          <button
+            class="bg-gray-800 text-white hover:bg-gray-700 px-4 py-2 rounded-md"
+            (click)="goToDelivery(delivery)"
+          >
+            {{ 'MANAGE' | translate }}
+          </button>
+        </td>
+      </tr>
+      <tr *ngIf="filteredDeliveries.length === 0" class="text-center">
+        <td colspan="5" class="border px-4 py-2 text-gray-600">
+          {{ 'NO_DELIVERIES' | translate }}
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

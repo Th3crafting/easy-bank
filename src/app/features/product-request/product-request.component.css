@@ -1,0 +1,5 @@
+textarea {
+  resize: none;
+  height: 15vh;
+  width: 100%;
+}

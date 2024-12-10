@@ -1,0 +1,49 @@
+<div class="flex flex-col bg-custom-gradient py-6">
+  <div class="max-w-6xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+    <h2 class="text-center text-2xl font-bold text-gray-800 mb-6">
+      {{ 'CLIENT_PRODUCT_LIST_TITLE' | translate }}
+    </h2>
+
+    <table class="w-full table-auto border-collapse border border-gray-300">
+      <thead class="bg-gray-800 text-white">
+      <tr>
+        <th class="px-4 py-2">{{ 'PRODUCT_NAME' | translate }}</th>
+        <th class="px-4 py-2">{{ 'PRODUCT_TYPE' | translate }}</th>
+        <th class="px-4 py-2">{{ 'STATUS' | translate }}</th>
+        <th class="px-4 py-2">{{ 'ACTIONS' | translate }}</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let product of clientProducts" class="text-center">
+        <td class="border px-4 py-2">{{ product.name }}</td>
+        <td class="border px-4 py-2">{{ product.type | translate }}</td>
+        <td class="border px-4 py-2">
+            <span
+              class="px-3 py-1 rounded-md"
+              [ngClass]="{
+                'bg-green-200 text-green-800': product.status === 'active',
+                'bg-yellow-200 text-yellow-800': product.status === 'pending',
+                'bg-red-200 text-red-800': product.status === 'inactive'
+              }"
+            >
+              {{ product.status | translate }}
+            </span>
+        </td>
+        <td class="border px-4 py-2">
+          <button
+            class="bg-gray-800 text-white hover:bg-gray-700 px-4 py-2 rounded-md"
+            (click)="viewProductDetails(product.id)"
+          >
+            {{ 'VIEW_DETAILS' | translate }}
+          </button>
+        </td>
+      </tr>
+      <tr *ngIf="clientProducts.length === 0" class="text-center">
+        <td colspan="4" class="border px-4 py-2 text-gray-600">
+          {{ 'NO_PRODUCTS' | translate }}
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

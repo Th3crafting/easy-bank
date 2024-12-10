@@ -1,0 +1,94 @@
+<div class="flex flex-col items-center justify-center bg-custom-gradient py-6">
+  <div class="bg-gray-100 p-8 rounded-lg shadow-lg max-w-xl w-full">
+    <ul class="flex justify-around mb-6 border-b border-gray-300 pb-3">
+      <li>
+        <button
+          class="tab-button"
+          [class.active]="activeTab === 'client'"
+          (click)="setActiveTab('client')"
+        >
+          {{ 'CLIENT_LOGIN' | translate }}
+        </button>
+      </li>
+      <li>
+        <button
+          class="tab-button"
+          [class.active]="activeTab === 'employee'"
+          (click)="setActiveTab('employee')"
+        >
+          {{ 'EMPLOYEE_LOGIN' | translate }}
+        </button>
+      </li>
+    </ul>
+
+    <div *ngIf="activeTab === 'client'" class="tab-content active">
+      <h3 class="text-center text-2xl font-bold text-gray-800 mb-6">{{ 'CLIENT_LOGIN' | translate }}</h3>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit('client')">
+        <div class="mb-4">
+          <label for="clientEmail" class="block text-gray-700 font-medium mb-1">{{ 'EMAIL' | translate }}</label>
+          <input
+            type="email"
+            id="clientEmail"
+            formControlName="email"
+            class="form-input w-full border-2 border-gray-700 rounded-md px-4 py-2"
+          />
+        </div>
+        <div class="mb-6">
+          <label for="clientPassword" class="block text-gray-700 font-medium mb-1">{{ 'PASSWORD' | translate }}</label>
+          <input
+            type="password"
+            id="clientPassword"
+            formControlName="password"
+            class="form-input w-full border-2 border-gray-700 rounded-md px-4 py-2"
+          />
+        </div>
+        <button
+          type="submit"
+          class="w-full bg-gray-800 text-white hover:bg-gray-700 px-6 py-3 rounded-md"
+        >
+          {{ 'LOGIN' | translate }}
+        </button>
+        <div class="text-right mt-3">
+          <a routerLink="/forgot-password" class="text-blue-600 hover:underline">
+            {{ 'FORGOT_PASSWORD' | translate }}
+          </a>
+        </div>
+      </form>
+    </div>
+
+    <div *ngIf="activeTab === 'employee'" class="tab-content active">
+      <h3 class="text-center text-2xl font-bold text-gray-800 mb-6">{{ 'EMPLOYEE_LOGIN' | translate }}</h3>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit('employee')">
+        <div class="mb-4">
+          <label for="employeeEmail" class="block text-gray-700 font-medium mb-1">{{ 'EMAIL' | translate }}</label>
+          <input
+            type="email"
+            id="employeeEmail"
+            formControlName="email"
+            class="form-input w-full border-2 border-gray-700 rounded-md px-4 py-2"
+          />
+        </div>
+        <div class="mb-6">
+          <label for="employeePassword" class="block text-gray-700 font-medium mb-1">{{ 'PASSWORD' | translate }}</label>
+          <input
+            type="password"
+            id="employeePassword"
+            formControlName="password"
+            class="form-input w-full border-2 border-gray-700 rounded-md px-4 py-2"
+          />
+        </div>
+        <button
+          type="submit"
+          class="w-full bg-gray-800 text-white hover:bg-gray-700 px-6 py-3 rounded-md"
+        >
+          {{ 'LOGIN' | translate }}
+        </button>
+        <div class="text-right mt-3">
+          <a routerLink="/forgot-password" class="text-blue-600 hover:underline">
+            {{ 'FORGOT_PASSWORD' | translate }}
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
